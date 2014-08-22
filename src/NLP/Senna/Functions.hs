@@ -59,7 +59,17 @@ withContextFromPath path =
 -- | This function sets up 'Context' to process the given
 -- sentence. After calling this function, 'NLP.Senna.Processor.process' may be
 -- used to perform NLP tasks on sentence.
+--
+-- === Example
+--
+-- The code to print words and 'NLP.Senna.Tags.POS' tags might look like
+--
+-- @
+-- withContext $ \ctx -> do
+--   tokenize ctx "This is a test sentence."
+--   print =<< (process ctx :: IO [Word])
+--   print =<< (process ctx :: IO [Maybe POS])
+-- @
 tokenize :: Context -> Sentence -> IO ()
 tokenize ctx sentence =
   newCString sentence >>= c_senna_tokenize ctx
-
