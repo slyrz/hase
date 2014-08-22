@@ -60,7 +60,6 @@ data NER = LOC
          | PER
          deriving (Enum,Eq,Show)
 
-
 -- | Tags produced by Chunking.
 data CHK = ADJP
          | ADVP
@@ -134,7 +133,7 @@ data SRL = A0
 
 -- | The 'Convertable' type class is used to convert foreign tags
 -- defined in "NLP.Senna.Foreign.Tags" to the high-level tags defined
--- in this module.
+-- in "NLP.Senna.Tags".
 class Convertable a b | a -> b where
   convert :: a -> b
 

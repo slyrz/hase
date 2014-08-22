@@ -45,20 +45,20 @@ freeContext :: Context -> IO ()
 freeContext =
   c_senna_free
 
--- | Provides a bracket which automatically creates and frees
--- a 'Context' passed to a user-defined function.
+-- | Provides a resource handler which automatically creates a 'Context',
+-- passes it to a user-defined function and frees it afterwards.
 withContext :: (Context -> IO a) -> IO a
 withContext =
   bracket createContext freeContext
 
--- | Like 'withContext', but allows users to specify a data directory.
+-- | Like 'withContext', but allows to specify a data directory.
 withContextFromPath :: FilePath -> (Context -> IO a) -> IO a
 withContextFromPath path =
   bracket (createContextFromPath path) freeContext
 
--- | This functions sets up 'Context' to process the given
--- sentence. After calling this function, 'NLP.Senna.Processor.process' may be used to
--- perform NLP tasks on sentence.
+-- | This function sets up 'Context' to process the given
+-- sentence. After calling this function, 'NLP.Senna.Processor.process' may be
+-- used to perform NLP tasks on sentence.
 tokenize :: Context -> Sentence -> IO ()
 tokenize ctx sentence =
   newCString sentence >>= c_senna_tokenize ctx

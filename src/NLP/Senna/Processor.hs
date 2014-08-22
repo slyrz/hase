@@ -13,9 +13,19 @@ import NLP.Senna.Util
 -- the 'NLP.Senna.Functions.tokenize' function was called.
 class Processor a where
   -- | Perform a NLP task on a previously tokenized sentence.
+  --
+  --   * Some 'process' functions return 'NLP.Senna.Types.Position' to indicate
+  --     where a tag was found. These positions are always at /word-level/.
+  --
+  --   * Some 'process' functions return 'NLP.Senna.Types.Phrase'. These phrases
+  --     are a list of words which belong to tag.
+  --
+  --   * Some 'process' functions provide results with and without 'Maybe'.
+  --     The results using 'Maybe' cover all words; the results
+  --     without 'Maybe' cover only those words which could be tagged.
   process :: Context -> IO [a]
 
-instance  Processor Word where
+instance Processor Word where
   process = getWords
 
 instance Processor (Maybe POS) where
@@ -54,21 +64,20 @@ instance Processor (CHK, Phrase) where
   process ctx =
     dropNothing <$> process ctx
 
-instance  Processor [(Maybe SRL, Position)] where
+instance Processor [(Maybe SRL, Position)] where
   process ctx =
     map deducePositions <$> getSrlTags ctx
 
-instance  Processor [(Maybe SRL, Phrase)] where
+instance Processor [(Maybe SRL, Phrase)] where
   process ctx =
     mapDeduce <$> getWords ctx <*> process ctx
     where
       mapDeduce words = map (deducePhrases words)
 
-instance  Processor [(SRL, Position)] where
+instance Processor [(SRL, Position)] where
   process ctx =
     map dropNothing <$> process ctx
 
-instance  Processor [(SRL, Phrase)] where
+instance Processor [(SRL, Phrase)] where
   process ctx =
     map dropNothing <$> process ctx
-
