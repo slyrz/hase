@@ -21,39 +21,39 @@ import NLP.Senna.Foreign
 import NLP.Senna.Tags
 import NLP.Senna.Types
 
--- | Convert a Ptr to a 1D array.
+-- | Convert a @Ptr@ to a 1D array.
 ptrToArray1 :: (Storable a) => (a -> b) -> Int -> Ptr a -> IO [b]
 ptrToArray1 f n ptr =
   map f <$> peekArray n ptr
 
--- | Convert a Ptr of Ptr to a 2D array.
+-- | Convert a @Ptr Ptr@ to a 2D array.
 ptrToArray2 :: (Storable a) => (a -> b) -> Int -> Int -> Ptr (Ptr a) -> IO [[b]]
 ptrToArray2 f n m ptr =
   peekArray n ptr >>= mapM (ptrToArray1 f m)
 
--- | Convert an 'Ptr CInt' returned by one of the low-level C functions to
--- an array of Enums.
+-- | Convert a @Ptr CInt@ returned by one of the low-level
+-- "NLP.Senna.Foreign.Functions" to an 'Enum' list.
 getEnums :: (Enum a) => CSenna -> Ptr CInt -> IO [a]
 getEnums ctx ptr = do
   len <- fromIntegral <$> c_senna_get_length ctx
   ptrToArray1 (toEnum . fromIntegral) len ptr
 
--- | Returns the low-level POS tags.
+-- | Returns a list of low-level 'NLP.Senna.Foreign.Tags.CPosTag' tags.
 getPosTags :: CSenna -> IO [CPosTag]
 getPosTags ctx =
   c_senna_get_pos ctx >>= getEnums ctx
 
--- | Returns the low-level NER tags.
+-- | Returns a list of low-level 'NLP.Senna.Foreign.Tags.CNerTag' tags.
 getNerTags :: CSenna -> IO [CNerTag]
 getNerTags ctx =
   c_senna_get_ner ctx >>= getEnums ctx
 
--- | Returns the low-level CHK tags.
+-- | Returns a list of low-level 'NLP.Senna.Foreign.Tags.CChkTag' tags.
 getChkTags :: CSenna -> IO [CChkTag]
 getChkTags ctx =
   c_senna_get_chk ctx >>= getEnums ctx
 
--- | Returns the low-level SRL tags.
+-- | Returns a list of low-level 'NLP.Senna.Foreign.Tags.CSrlTag' tag lists.
 getSrlTags :: CSenna -> IO [[CSrlTag]]
 getSrlTags ctx = do
    len <- fromIntegral <$> c_senna_get_length ctx
