@@ -5,6 +5,7 @@ module NLP.Senna.Tags where
 
 import NLP.Senna.Foreign
 
+-- | Tags produced by Part of Speech tagging.
 data POS = CC
          | CD
          | COLON
@@ -52,12 +53,15 @@ data POS = CC
          | WRB
          deriving (Enum,Eq,Show)
 
+-- | Tags produced by Name Entity Recognition.
 data NER = LOC
          | MISC
          | ORG
          | PER
          deriving (Enum,Eq,Show)
 
+
+-- | Tags produced by Chunking.
 data CHK = ADJP
          | ADVP
          | CONJP
@@ -72,8 +76,7 @@ data CHK = ADJP
          | O
          deriving (Enum,Eq,Show)
 
--- See Bonial, Claire, et al. "English PropBank Annotation Guidelines."
--- University of Colorado at Boulder (2012).
+-- | Tags produced by Semantic Role Labeling.
 data SRL = A0
          | A1
          | A2
@@ -130,11 +133,11 @@ data SRL = A0
          | V
          deriving (Enum,Eq,Show)
 
--- The Convertable type class is used to convert Senna's foreign tags to our
--- native (more highlevel) tags.
+-- | The 'Convertable' type class is used to convert foreign tags
+-- defined in "NLP.Senna.Foreign.Tags" to the high-level tags defined
+-- in this module.
 class Convertable a b | a -> b where
   convert :: a -> b
-
 
 -- All SENNA tags have some unsupported elements (PADDING,UNAVAILABLE) and/or
 -- a zero element (O). To avoid creating these elements for every data type,

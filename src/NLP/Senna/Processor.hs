@@ -8,7 +8,11 @@ import NLP.Senna.Types
 import NLP.Senna.Tags
 import NLP.Senna.Util
 
+-- | The 'Processor' type class provides the 'process' function which
+-- can be used to perform NLP tasks on a sentence after
+-- the 'NLP.Senna.Functions.tokenize' function was called.
 class Processor a where
+  -- | Perform a NLP task on a previously tokenized sentence.
   process :: Context -> IO [a]
 
 instance  Processor Word where
