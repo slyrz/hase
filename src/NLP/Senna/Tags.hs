@@ -73,7 +73,6 @@ data CHK = ADJP
          | SBAR
          | UCP
          | VP
-         | O
          deriving (Enum,Eq,Show)
 
 -- | Tags produced by Semantic Role Labeling.
