@@ -49,7 +49,7 @@ typedef struct {
 } senna_t;
 
 /**
- * Initalize context and load all data from path.
+ * Initialize context and load all data from path.
  */
 senna_t* senna_new (const char *path);
 
@@ -61,13 +61,13 @@ void senna_free (senna_t *ctx);
 /**
  * Tokenize a sentence. This method must be called before calling the
  * functions:
- *   - senna_get_length
- *   - senna_get_verbs
- *   - senna_get_words
- *   - senna_get_pos
- *   - senna_get_chk
- *   - senna_get_ner
- *   - senna_get_srl
+ *   senna_get_length
+ *   senna_get_verbs
+ *   senna_get_words
+ *   senna_get_pos
+ *   senna_get_chk
+ *   senna_get_ner
+ *   senna_get_srl
  */
 void senna_tokenize (senna_t *ctx, const char *sentence);
 
@@ -92,11 +92,11 @@ int senna_get_verbs (senna_t *ctx);
 char** senna_get_words (senna_t *ctx);
 
 /**
- * Perform a task:
- * 	pos - Part of Speech tagging
- * 	chk - Chunking
- * 	ner - Name Entity Recognition
- * 	srl - Semantic Role Labeling
+ * Perform a NLP task on the tokenized sentence:
+ *   senna_get_pos - Part of Speech tagging
+ *   senna_get_chk - Chunking
+ *   senna_get_ner - Name Entity Recognition
+ *   senna_get_srl - Semantic Role Labeling
  */
 int*  senna_get_pos (senna_t *ctx);
 int*  senna_get_chk (senna_t *ctx);
