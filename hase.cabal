@@ -1,0 +1,65 @@
+name:                  hase
+version:               0.1.0.0
+synopsis:              Haskell binding for the Senna NLP toolkit.
+description:           Haskell binding for the Senna NLP toolkit, supporting
+                       Part of Speech (POS) tagging, Chunking (CHK),
+                       Name Entity Recognition (NER) and
+                       Semantic Role Labeling (SRL).
+license:               MIT
+license-file:          LICENSE
+category:              Text
+build-type:            Simple
+cabal-version:         >=1.10
+data-files:            foreign/senna/data/*.dat
+                       foreign/senna/data/*.loc.dat
+                       foreign/senna/data/*.misc.dat
+                       foreign/senna/data/*.msc.dat
+                       foreign/senna/data/*.org.dat
+                       foreign/senna/data/*.per.dat
+                       foreign/senna/hash/*.loc.lst
+                       foreign/senna/hash/*.lst
+                       foreign/senna/hash/*.misc.lst
+                       foreign/senna/hash/*.msc.lst
+                       foreign/senna/hash/*.org.lst
+                       foreign/senna/hash/*.per.lst
+
+library
+  build-depends:       base >= 4 && < 5,
+                       filepath >= 1.3 && < 1.4
+  hs-source-dirs:      src
+  default-language:    Haskell2010
+  exposed-modules:     NLP.Senna
+                       NLP.Senna.Foreign
+                       NLP.Senna.Foreign.Functions
+                       NLP.Senna.Foreign.Tags
+                       NLP.Senna.Foreign.Types
+                       NLP.Senna.Functions
+                       NLP.Senna.Processor
+                       NLP.Senna.Tags
+                       NLP.Senna.Types
+                       NLP.Senna.Util
+  other-modules:       Paths_hase
+  include-dirs:        foreign,
+                       foreign/senna
+  c-sources:           foreign/senna/SENNA_CHK.c
+                       foreign/senna/SENNA_Hash.c
+                       foreign/senna/SENNA_NER.c
+                       foreign/senna/SENNA_nn.c
+                       foreign/senna/SENNA_POS.c
+                       foreign/senna/SENNA_PSG.c
+                       foreign/senna/SENNA_PT0.c
+                       foreign/senna/SENNA_Scores2Treillis.c
+                       foreign/senna/SENNA_SRL.c
+                       foreign/senna/SENNA_Tokenizer.c
+                       foreign/senna/SENNA_Treillis.c
+                       foreign/senna/SENNA_utils.c
+                       foreign/senna/SENNA_VBS.c
+                       foreign/senna.c
+
+executable example
+  hs-source-dirs:      example
+  default-language:    Haskell2010
+  main-is:             Usage.hs
+  build-depends:       base,
+                       filepath,
+                       hase
