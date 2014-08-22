@@ -111,7 +111,8 @@ void
 senna_tokenize (senna_t * ctx, const char *sentence)
 {
   /**
-   * All cached results become invalid.
+   * All cached results become invalid. Setting pointers to NULL doesn't leak
+   * memory because SENNA manages these pointers.
    */
   ctx->error = 0;
   ctx->verbs = 0;
@@ -192,7 +193,6 @@ static void
 senna_generate_vbs (senna_t * ctx)
 {
   senna_require_labels (ctx, pos);
-
   ctx->vbs_labels =
     SENNA_VBS_forward (ctx->vbs, ctx->tokens->word_idx, ctx->tokens->caps_idx,
       ctx->pos_labels, ctx->tokens->n);
@@ -209,7 +209,6 @@ senna_generate_srl (senna_t * ctx)
 {
   senna_require_labels (ctx, pt0);
   senna_require_labels (ctx, vbs);
-
   ctx->srl_labels =
     SENNA_SRL_forward (ctx->srl, ctx->tokens->word_idx, ctx->tokens->caps_idx,
       ctx->pt0_labels, ctx->vbs_labels, ctx->tokens->n);
