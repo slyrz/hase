@@ -16,12 +16,12 @@ archive content into `foreign/senna`.
 Then run
 
     cabal configure
-		cabal build
+    cabal build
 
 to build hase and the example program. You can execute the example program
 by running
 
-   ./dist/build/example/example
+    ./dist/build/example/example
 
 If you want to install this package, run
 
