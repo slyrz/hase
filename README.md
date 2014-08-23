@@ -21,7 +21,7 @@ Then run
 to build hase and the example program. You can execute the example program
 by running
 
-    ./dist/build/example/example
+    cabal run example
 
 If you want to install this package, run
 
