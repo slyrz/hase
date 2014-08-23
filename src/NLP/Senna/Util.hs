@@ -12,7 +12,6 @@ module NLP.Senna.Util
 
 import Control.Applicative ((<$>))
 import Control.Arrow (first)
-import Data.List (span)
 import Data.Maybe (fromJust, isJust)
 import Foreign
 import Foreign.C.String
@@ -70,7 +69,10 @@ getWords ctx = do
 -- | Counts the number of elements until a given item is reached.
 countUntil :: (Eq a) => [a] -> a -> Int
 countUntil s x =
-  let (h,t) = span (x /=) s in 1 + length h
+  let (h,t) = span (x /=) s in
+    if t /= []
+      then length h + 1
+      else length h
 
 -- | Converts low-level 'NLP.Senna.Foreign.Tags.Spanning' tags to high-level
 -- "NLP.Senna.Tags" and 'NLP.Senna.Types.Position' tuples.
