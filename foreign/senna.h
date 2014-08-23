@@ -61,9 +61,9 @@ void senna_free (senna_t *ctx);
 /**
  * Tokenize a sentence. This method must be called before calling the
  * functions:
- *   senna_get_length
- *   senna_get_verbs
- *   senna_get_words
+ *   senna_get_number_of_tokens
+ *   senna_get_number_of_verbs
+ *   senna_get_tokens
  *   senna_get_pos
  *   senna_get_chk
  *   senna_get_ner
@@ -79,17 +79,17 @@ int senna_get_error (senna_t *ctx);
 /**
  * Returns the number of tokens.
  */
-int senna_get_length (senna_t *ctx);
+int senna_get_number_of_tokens (senna_t *ctx);
 
 /**
  * Returns the number of verbs in the tokenized sentence.
  */
-int senna_get_verbs (senna_t *ctx);
+int senna_get_number_of_verbs (senna_t *ctx);
 
 /**
  * Returns the tokens.
  */
-char** senna_get_words (senna_t *ctx);
+char** senna_get_tokens (senna_t *ctx);
 
 /**
  * Perform a NLP task on the tokenized sentence:

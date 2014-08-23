@@ -4,7 +4,7 @@ module NLP.Senna.Util
   , getNerTags
   , getChkTags
   , getSrlTags
-  , getWords
+  , getTokens
   , deducePositions
   , deducePhrases
   , dropNothing
@@ -34,7 +34,7 @@ ptrToArray2 f n m ptr =
 -- "NLP.Senna.Foreign.Functions" to an 'Enum' list.
 getEnums :: (Enum a) => CSenna -> Ptr CInt -> IO [a]
 getEnums ctx ptr = do
-  len <- fromIntegral <$> c_senna_get_length ctx
+  len <- fromIntegral <$> c_senna_get_number_of_tokens ctx
   ptrToArray1 (toEnum . fromIntegral) len ptr
 
 -- | Returns a list of low-level 'NLP.Senna.Foreign.Tags.CPosTag' tags.
@@ -55,15 +55,15 @@ getChkTags ctx =
 -- | Returns a list of low-level 'NLP.Senna.Foreign.Tags.CSrlTag' tag lists.
 getSrlTags :: CSenna -> IO [[CSrlTag]]
 getSrlTags ctx = do
-   len <- fromIntegral <$> c_senna_get_length ctx
-   vrb <- fromIntegral <$> c_senna_get_verbs ctx
+   len <- fromIntegral <$> c_senna_get_number_of_tokens ctx
+   vrb <- fromIntegral <$> c_senna_get_number_of_verbs ctx
    c_senna_get_srl ctx >>= ptrToArray2 (toEnum . fromIntegral) vrb len
 
--- | Splits the tokenized sentence into words.
-getWords :: CSenna -> IO [String]
-getWords ctx = do
-  arr <- c_senna_get_words ctx
-  len <- c_senna_get_length ctx
+-- | Returns a list of tokens.
+getTokens :: CSenna -> IO [String]
+getTokens ctx = do
+  arr <- c_senna_get_tokens ctx
+  len <- c_senna_get_number_of_tokens ctx
   ptrToArray1 peekCString (fromIntegral len) arr >>= sequence
 
 -- | Counts the number of elements until a given item is reached.
@@ -97,14 +97,14 @@ dropNothing :: [(Maybe a,b)] -> [(a,b)]
 dropNothing =
   map (first fromJust) . filter (isJust . fst)
 
--- | Takes a list of words acquired by 'getWords' and converts
+-- | Takes a list of tokens acquired by 'getTokens' and converts
 -- 'NLP.Senna.Types.Position' to 'NLP.Senna.Types.Phrase'.
 --
 -- This function works on tuples because this is what
 -- 'NLP.Senna.Processor.process' results look like.
 deducePhrases :: [String] -> [(a,Position)] -> [(a,Phrase)]
-deducePhrases words [] = []
-deducePhrases words (x:xs) =
-  (v, take l words) : deducePhrases (drop l words) xs
+deducePhrases tokens [] = []
+deducePhrases tokens (x:xs) =
+  (v, take l tokens) : deducePhrases (drop l tokens) xs
   where
     (v, (_,l)) = x

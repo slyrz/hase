@@ -1,7 +1,7 @@
 -- | This module contains all type definitions used by "NLP.Senna".
 module NLP.Senna.Types
   (
-    Word
+    Token
   , Sentence
   , Position
   , Phrase
@@ -14,16 +14,19 @@ import NLP.Senna.Foreign (CSenna)
 -- underlying C functions.
 type Context = CSenna
 
--- | Word is a single word.
-type Word = String
+-- | Token is a word or a symbol.
+type Token = String
 
 -- | Sentence is a single sentence.
 type Sentence = String
 
--- | Phrase is a list of consecutive words. It's used for tags which may span
--- multiple words.
-type Phrase = [Word]
+-- | Phrase is a list of consecutive tokens. It's used for tags which may span
+-- multiple tokens, like the 'PER' tag of 'NLP.Senna.Tags.NER' might span
+-- /Simon Peyton Jones/ in the sentence \"Simon Peyton Jones is a major
+-- contributor to the design of the Haskell programming language.\",
+-- resulting in the phrase @[\"Simon\", \"Peyton\", \"Jones\"]@ tagged as 'PER'.
+type Phrase = [Token]
 
 -- | Position is a tuple of (index, length) Ints. It's used to represent
--- the position of tags in the word array of a tokenized sentence.
+-- the /token-level/ position of tags.
 type Position = (Int, Int)

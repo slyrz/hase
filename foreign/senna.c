@@ -133,14 +133,14 @@ senna_get_error (senna_t * ctx)
 }
 
 int
-senna_get_length (senna_t * ctx)
+senna_get_number_of_tokens (senna_t * ctx)
 {
   senna_require_tokens (ctx, 0);
   return ctx->tokens->n;
 }
 
 int
-senna_get_verbs (senna_t * ctx)
+senna_get_number_of_verbs (senna_t * ctx)
 {
   senna_require_tokens (ctx, 0);
   senna_require_labels (ctx, vbs);
@@ -148,7 +148,7 @@ senna_get_verbs (senna_t * ctx)
 }
 
 char **
-senna_get_words (senna_t * ctx)
+senna_get_tokens (senna_t * ctx)
 {
   senna_require_tokens (ctx, NULL);
   return ctx->tokens->words;

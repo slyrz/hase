@@ -62,12 +62,12 @@ withContextFromPath path =
 --
 -- === Example
 --
--- The code to print words and 'NLP.Senna.Tags.POS' tags might look like
+-- The code to print tokens and 'NLP.Senna.Tags.POS' tags might look like
 --
 -- @
 -- withContext $ \ctx -> do
 --   tokenize ctx "This is a test sentence."
---   print =<< (process ctx :: IO [Word])
+--   print =<< (process ctx :: IO [Token])
 --   print =<< (process ctx :: IO [Maybe POS])
 -- @
 tokenize :: Context -> Sentence -> IO ()

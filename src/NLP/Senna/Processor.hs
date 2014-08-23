@@ -15,18 +15,18 @@ class Processor a where
   -- | Perform a NLP task on a previously tokenized sentence.
   --
   --   * Some 'process' functions return 'NLP.Senna.Types.Position' to indicate
-  --     where a tag was found. These positions are always at /word-level/.
+  --     where a tag was found. These positions are always at /token-level/.
   --
   --   * Some 'process' functions return 'NLP.Senna.Types.Phrase'. These phrases
-  --     are a list of words which belong to tag.
+  --     are a list of tokens which belong to tag.
   --
   --   * Some 'process' functions provide results with and without 'Maybe'.
-  --     The results using 'Maybe' cover all words; the results
-  --     without 'Maybe' cover only those words which could be tagged.
+  --     The results using 'Maybe' cover all tokens; the results
+  --     without 'Maybe' cover only those tokens which could be tagged.
   process :: Context -> IO [a]
 
-instance Processor Word where
-  process = getWords
+instance Processor Token where
+  process = getTokens
 
 instance Processor (Maybe POS) where
   process ctx =
@@ -42,11 +42,11 @@ instance Processor (Maybe CHK, Position) where
 
 instance Processor (Maybe NER, Phrase) where
   process ctx =
-    deducePhrases <$> getWords ctx <*> process ctx
+    deducePhrases <$> getTokens ctx <*> process ctx
 
 instance Processor (Maybe CHK, Phrase) where
   process ctx =
-    deducePhrases <$> getWords ctx <*> process ctx
+    deducePhrases <$> getTokens ctx <*> process ctx
 
 instance Processor (NER, Position) where
   process ctx =
@@ -70,9 +70,9 @@ instance Processor [(Maybe SRL, Position)] where
 
 instance Processor [(Maybe SRL, Phrase)] where
   process ctx =
-    mapDeduce <$> getWords ctx <*> process ctx
+    mapDeduce <$> getTokens ctx <*> process ctx
     where
-      mapDeduce words = map (deducePhrases words)
+      mapDeduce tokens = map (deducePhrases tokens)
 
 instance Processor [(SRL, Position)] where
   process ctx =

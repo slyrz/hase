@@ -16,7 +16,7 @@ printTags ctx sentence = do
   tokenize ctx sentence
 
   putStrLn sentence
-  print =<< (process ctx :: IO [Word])
+  print =<< (process ctx :: IO [Token])
   print =<< (process ctx :: IO [Maybe POS])
   print =<< (process ctx :: IO [(NER, Phrase)])
   print =<< (process ctx :: IO [(CHK, Phrase)])

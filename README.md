@@ -39,7 +39,7 @@ main =
   withContext $ \ctx -> do
     tokenize ctx =<< getLine
 
-    print =<< (process ctx :: IO [Word])
+    print =<< (process ctx :: IO [Token])
     print =<< (process ctx :: IO [Maybe POS])
     print =<< (process ctx :: IO [(CHK, Phrase)])
     print =<< (process ctx :: IO [(NER, Phrase)])
