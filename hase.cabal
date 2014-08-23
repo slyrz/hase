@@ -55,6 +55,7 @@ library
                        foreign/senna/SENNA_utils.c
                        foreign/senna/SENNA_VBS.c
                        foreign/senna.c
+  ghc-options:         -Wall
   cc-options:          -ffast-math
 
 executable example
