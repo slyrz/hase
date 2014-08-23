@@ -79,14 +79,14 @@ countUntil s x =
 --
 -- This function is used to produce 'NLP.Senna.Processor.process' results.
 deducePositions :: (Eq a, Convertable a b, Spanning a) => [a] -> [(b,Position)]
-deducePositions x =
-    deducePositions x 0
+deducePositions =
+    deducePositions' 0
   where
-    deducePositions [] _ = []
-    deducePositions xs@(x:xs') i =
+    deducePositions' _ [] = []
+    deducePositions' i xs@(x:xs') =
       case end x of
-        Just y -> (convert x, (i,l)) : deducePositions (drop l xs) (i + l) where l = countUntil xs y
-        Nothing -> (convert x, (i,1)) : deducePositions xs' (i + 1)
+        Just y -> (convert x, (i,l)) : deducePositions' (i+l) (drop l xs) where l = countUntil xs y
+        Nothing -> (convert x, (i,1)) : deducePositions' (i+1) xs'
 
 -- | Removes @(Nothing, _)@ tuples from list and applies 'Data.Maybe.fromJust'
 -- to all remaining elements.
@@ -103,7 +103,7 @@ dropNothing =
 -- This function works on tuples because this is what
 -- 'NLP.Senna.Processor.process' results look like.
 deducePhrases :: [String] -> [(a,Position)] -> [(a,Phrase)]
-deducePhrases tokens [] = []
+deducePhrases _ [] = []
 deducePhrases tokens (x:xs) =
   (v, take l tokens) : deducePhrases (drop l tokens) xs
   where

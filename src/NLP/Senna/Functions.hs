@@ -10,11 +10,9 @@ module NLP.Senna.Functions
 
 import Control.Applicative ((<$>))
 import Control.Exception (bracket)
-import Foreign
 import Foreign.C.String (newCString)
 import NLP.Senna.Foreign
 import NLP.Senna.Types
-import NLP.Senna.Util
 import Paths_hase
 import System.FilePath
 
