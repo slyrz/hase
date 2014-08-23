@@ -13,6 +13,8 @@ supporting
 At first, please download [Senna](http://ronan.collobert.com/senna) and
 extract the archive content into `foreign/senna/`.
 
+    tar -xzf senna-v3.0.tgz -C foreign/
+
 Then run
 
     cabal configure
