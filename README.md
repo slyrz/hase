@@ -1,6 +1,6 @@
 # hase
 
-Hase is a Haskell binding for the [Senna NLP toolkit](http://ronan.collobert.com/senna),
+Hase provides Haskell bindings for the [Senna NLP toolkit](http://ronan.collobert.com/senna),
 supporting
 
   * Part of Speech tagging (POS)
@@ -10,24 +10,21 @@ supporting
 
 ### Getting Started
 
-At first, please download [Senna](http://ronan.collobert.com/senna) and extract the
-archive content into `foreign/senna`.
+At first, please download [Senna](http://ronan.collobert.com/senna) and
+extract the archive content into `foreign/senna/`.
 
 Then run
 
     cabal configure
     cabal build
 
-to build hase and the example program. You can execute the example program
-by running
+to build the hase. You can run the example program by executing
 
     cabal run example
 
-If you want to install this package, run
+Finally, if you want to install this package, run
 
     cabal install
-
-after build.
 
 ### License
 
