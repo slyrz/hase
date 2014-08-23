@@ -18,7 +18,7 @@ Then run
     cabal configure
     cabal build
 
-to build the hase. You can run the example program by executing
+to build hase. You can run the example program by executing
 
     cabal run example
 
