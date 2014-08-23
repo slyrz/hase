@@ -1,7 +1,7 @@
 name:                  hase
 version:               0.1.0.0
-synopsis:              Haskell binding for the Senna NLP toolkit.
-description:           Haskell binding for the Senna NLP toolkit, supporting
+synopsis:              Haskell bindings for the Senna NLP toolkit.
+description:           Haskell bindings for the Senna NLP toolkit, supporting
                        Part of Speech (POS) tagging, Chunking (CHK),
                        Name Entity Recognition (NER) and
                        Semantic Role Labeling (SRL).
