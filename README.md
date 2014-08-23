@@ -11,7 +11,8 @@ supporting
 ### Getting Started
 
 At first, please download [Senna](http://ronan.collobert.com/senna) and
-extract the archive content into `foreign/senna/`.
+extract the Senna source files into `foreign/senna/`. The `tar` command below
+does just that.
 
     tar -xzf senna-v3.0.tgz -C foreign/
 
