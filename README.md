@@ -32,13 +32,11 @@ Here's a simple example to tokenize and process a sentence read from stdin.
 
 ```haskell
 module Main where
-
 import NLP.Senna
 
 main =
   withContext $ \ctx -> do
     tokenize ctx =<< getLine
-
     print =<< (process ctx :: IO [Token])
     print =<< (process ctx :: IO [Maybe POS])
     print =<< (process ctx :: IO [(CHK, Phrase)])
